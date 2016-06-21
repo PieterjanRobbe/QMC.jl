@@ -33,11 +33,11 @@ A lattice sequence in `s = 2` dimensions can be constructed as
 lat = LatSeq(2)
 ```
 
-The first point of the sequence
+The first point of the sequence can be obtained as
 ```julia
 next!(lat)
 ```
-is a `Vector{Float64}` of length `s`:
+It is a `Vector{Float64}` of length `s` containing
 ```
 [0.0, 0.0]
 ```
