@@ -8,7 +8,9 @@ julia:
   - 0.4
   - nightly
 before_script:
-  - julia -e 'println(LOAD_PATH);push!(LOAD_PATH,"~/.julia/v"*ENV["TRAVIS_JULIA_VERSION"]*"/QMC");println(LOAD_PATH)'
+  - julia -e 'println(LOAD_PATH)'
+  - julia -e 'push!(LOAD_PATH,"~/.julia/v"*ENV["TRAVIS_JULIA_VERSION"]*"/QMC")'
+  - julia -e 'println(LOAD_PATH)'
 notifications:
   email: false
 # uncomment the following lines to override the default test script
