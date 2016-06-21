@@ -83,7 +83,7 @@ println("============================")
 println("=    COMPUTE INTEGRAL 2    =")
 println("============================")
 # same, but now with randomized sequence
-d = [9, 25, 60, 80]
+d = [9, 25, 60, 80, 100]
 q = 16
 for i in 1:length(d)
 	println("Computing cos-integral in $(d[i]) dimensions...")
