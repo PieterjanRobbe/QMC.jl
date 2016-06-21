@@ -1,3 +1,9 @@
+println(pwd())
+
+println(LOAD_PATH)
+println(LOAD_PATH[find([length(search(LOAD_PATH[i],"QMC")) for i in 1:length(LOAD_PATH)].!=0)])
+
+
 # the 250-dimensional generating vector of the Cools, Kuo and Nuyens paper in SIAM SISC for 2^20 points
 const CKN_250_20 = collect(readdlm("data/CKN_250_20.txt",UInt32))
 
