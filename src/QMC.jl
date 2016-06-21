@@ -1,0 +1,5 @@
+module QMC
+
+# package code goes here
+
+end # module
