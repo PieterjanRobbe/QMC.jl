@@ -1,4 +1,5 @@
 # The QMC module for Julia
+[![Build Status](https://travis-ci.org/PieterjanRobbe/QMC.jl.png)](https://travis-ci.org/PieterjanRobbe/QMC.jl)
 
 This module provides an implementation of some standard Quasi-Monte Carlo (QMC) point set generators.
 Currently, only rank-1 lattice rules and randomized rank-1 lattice rules in base 2 are supported.
