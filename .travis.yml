@@ -7,6 +7,8 @@ julia:
   - 0.3
   - 0.4
   - nightly
+before_script:
+  - julia -e 'push!(LOAD_PATH,pwd()[1:end-4])'
 notifications:
   email: false
 # uncomment the following lines to override the default test script
