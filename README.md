@@ -46,7 +46,7 @@ We can also ask for multiple points at once, using the second argument, i.e.,
 next!(lat,10)
 ```
 
-The next 10 points of the sequence are
+This gives the next 10 points of the sequence:
 ```
 [0.5,0.5]      
 [0.75,0.25]    
@@ -70,6 +70,22 @@ Depending on the size of `s`, a suitable generating vector is used. If needed, t
 lat = LatSeq(z,s,nmax)
 ```
 where `nmax` is the maximum number of points in the sequence.
+The module also offers randomized lattice rules (see [test/QMCtest.jl](test/QMCtest.jl) for a typical use).
+```julia
+randlat = RandLatSeq(250,16) # randomized lattice rule in 250 dimensions with 16 shifts
+points = next!(randlat)
+```
+This last command returns a `250x16` matrix containing the first `250`-dimensional point of the lattice rule shifted by 16 uniformly distributed random shifts. Similar as above, we can request `N` points at once using
+```julia
+points = next!(randlat,N)
+```
+
+Digital nets that use a generating matrix are not yet implemented.
+
+Any point set generator can be reset using
+```julia
+reset!(lat) # next point of the sequnce will be [0., 0.]
+```
 
 ## A simple example
 
@@ -88,6 +104,7 @@ figure(1), subplot(111,aspect="equal")
 plot(points[:,9], points[:,4], "b.") # a good projection
 ```
 ![projection of dimension 9 versus dimension 4](figures/9_versus_4.png "projection of dimension 9 versus dimension 4")
+
 This is a good projection, since the points distribute the space `[0,1]^s` evenly. Next, look at the projection of dimension `6` against dimension `2`:
 ```julia
 points = hcat(points...) # to "flat" array
@@ -95,4 +112,5 @@ figure(2), subplot(111,aspect="equal")
 plot(points[:,6], points[:,2], "b.") # a bad projection
 ```
 ![projection of dimension 6 versus dimension 2](figures/6_versus_2.png "projection of dimension 9 versus dimension 4")
+
 Now, we clearly see a pattern in the distribution of the lattice points. Other bad (but nice) projections are `1` versus `9`, `8` versus `5` or `10` versus `4`.
