@@ -25,7 +25,7 @@ push!(LOAD_PATH,"/Path/to/QMC/src")
 
 Now you should be able to 
 ```julia
-use QMC
+using QMC
 ```
 
 A lattice sequence in `s = 2` dimensions can be constructed as
