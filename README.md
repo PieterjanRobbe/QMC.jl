@@ -16,10 +16,15 @@ Note that our lattice rules are in fact (32-bit extensible) lattice sequences, s
 
 ## Installation
 
-Save a local copy of the QMC-folder and add the module to your `~/.juliarc.jl`-file, i.e., append the following line:
 ```julia
-push!(LOAD_PATH,"/Path/to/QMC/src")
+Pkg.clone("https://github.com/PieterjanRobbe/QMC.jl")
 ```
+
+Next, add the module to your `~/.juliarc.jl`-file, i.e., append the following line:
+```julia
+push!(LOAD_PATH,"/Path/to/QMC")
+```
+where `/Path/to/QMC` is the path to your QMC package, usually this is `./.julia/v0.4/QMC`.
 
 ## Usage
 
