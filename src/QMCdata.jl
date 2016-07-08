@@ -1,6 +1,3 @@
-println(LOAD_PATH)
-println(ENV["TRAVIS_JULIA_VERSION"])
-
 # obtain absolute path to module
 PATH = LOAD_PATH[find([length(search(LOAD_PATH[i],"QMC")) for i in 1:length(LOAD_PATH)].!=0)][1]
 
