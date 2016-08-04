@@ -1,10 +1,10 @@
 module QMC
 
 # import statements
-import Base: show, next, start, done
+import Base: show, next, reset, start, done
 
 # export statements
-export LatSeq, RandLatSeq, next!, reset!, getPoint, ndims, nshifts, start, next, done # from QMCgenerators.jl
+export LatSeq, DigSeq, RandWrapper, next, reset, start, done # from QMCgenerators.jl
 
 # include statements
 include("QMCdata.jl")
