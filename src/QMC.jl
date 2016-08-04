@@ -4,7 +4,7 @@ module QMC
 import Base: show, next, reset, start, done
 
 # export statements
-export LatSeq, DigSeq, RandWrapper, next, reset, start, done # from QMCgenerators.jl
+export LatSeq, DigSeq, RandWrapper, getPoint, next, reset, start, done # from QMCgenerators.jl
 
 # include statements
 include("QMCdata.jl")
