@@ -1,12 +1,16 @@
 using QMC
 using Base.Test
 
+<<<<<<< HEAD
 srand(1208)
 
+=======
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 function approx_pi_qmc(n::Integer)
 	lat = LatSeq(2)
 	count = 0
 	for i in 1:n
+<<<<<<< HEAD
 		x = next(lat)
 		if x[1]*x[1] + x[2]*x[2] < 1
 			count += 1
@@ -20,6 +24,9 @@ function approx_pi_qmc_2(n::Integer)
 	count = 0
 	for i in 1:n
 		x = next(dig)
+=======
+		x = next!(lat)
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 		if x[1]*x[1] + x[2]*x[2] < 1
 			count += 1
 		end
@@ -41,6 +48,7 @@ for i in 1:length(d)
 	println("Constructing lattice sequence in $(d[i]) dimensions...")
 	l = LatSeq(d[i])
 	println("Taking $(n[i]) points of the lattice sequence...")
+<<<<<<< HEAD
 	x = next(l,n[i])
 	@test(size(x)==(n[i],))
 end
@@ -51,6 +59,9 @@ for i in 1:length(d)
 	s = DigSeq(d[i])
 	println("Taking $(n[i]) points of the lattice sequence...")
 	x = next(s,n[i])
+=======
+	x = next!(l,n[i])
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 	@test(size(x)==(n[i],))
 end
 d = [-1 0 3601] # invalid
@@ -58,15 +69,19 @@ for i in 1:length(d)
 	println("Constructing lattice sequence in $(d[i]) dimensions...")
 	@test_throws ErrorException LatSeq(d[i])
 end
+<<<<<<< HEAD
 d = [-1 0 1112] # invalid
 for i in 1:length(d)
 	println("Constructing digital sequence in $(d[i]) dimensions...")
 	@test_throws ErrorException DigSeq(d[i])
 end
+=======
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 d = [2 150] # valid
 q = [8 16]
 for i in 1:length(d)
 	println("Constructing randomized lattice sequence in $(d[i]) dimensions with $(q[i]) shifts...")
+<<<<<<< HEAD
 	l = LatSeq(d[i])
 	r = RandWrapper(l,q[i])
 	println("Taking a point of the randomized lattice sequence...")
@@ -81,6 +96,11 @@ for i in 1:length(d)
 	r = RandWrapper(s,q[i])
 	println("Taking a point of the randomized digital sequence...")
 	x = next(r)
+=======
+	r = RandLatSeq(d[i],q[i])
+	println("Taking a point of the randomized lattice sequence...")
+	x = next!(r)
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 	@test(size(x)==(d[i],q[i]))
 end
 
@@ -96,6 +116,7 @@ for i in 1:length(n)
 	@test_approx_eq_eps approx_pi_qmc(n[i]) v[i] 1e-4
 end
 
+<<<<<<< HEAD
 println("=============================")
 println("= APPROXIMATION OF PI (DIG) =")
 println("=============================")
@@ -108,6 +129,8 @@ for i in 1:length(n)
 	@test_approx_eq_eps approx_pi_qmc_2(n[i]) v[i] 1e-4
 end
 
+=======
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 println("============================")
 println("=     COMPUTE INTEGRAL     =")
 println("============================")
@@ -119,6 +142,7 @@ for i in 1:length(d)
 	N = 0
 	I = 0.
 	l = LatSeq(d[i])
+<<<<<<< HEAD
 	skip = next(l)
 	for x in l
 		I = I + cos(sqrt(sum(norminv(x).^2/2)))
@@ -141,6 +165,9 @@ for i in 1:length(d)
 	I = 0.
 	l = DigSeq(d[i])
 	skip = next(l)
+=======
+	skip = next!(l)
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 	for x in l
 		I = I + cos(sqrt(sum(norminv(x).^2/2)))
 		N = N + 1
@@ -161,9 +188,14 @@ for i in 1:length(d)
 	println("Computing cos-integral in $(d[i]) dimensions...")
 	N = 0
 	I = zeros(q)
+<<<<<<< HEAD
 	l = LatSeq(d[i])
 	r = RandWrapper(l,q)
 	skip = next(r)
+=======
+	r = RandLatSeq(d[i],q)
+	skip = next!(r)
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 	for x in r
 		for j in 1:q
 			@inbounds I[j] = I[j] + cos(sqrt(sum(norminv(x[:,j]).^2/2)))
@@ -175,6 +207,7 @@ for i in 1:length(d)
 	end
 	println("  Converged after $(N) points!")
 end
+<<<<<<< HEAD
 
 println("============================")
 println("= COMPUTE INTEGRAL 2 (DIG) =")
@@ -200,3 +233,5 @@ for i in 1:length(d)
 	end
 	println("  Converged after $(N) points!")
 end
+=======
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0

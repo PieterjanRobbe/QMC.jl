@@ -21,7 +21,10 @@ Pkg.clone("https://github.com/PieterjanRobbe/QMC.jl")
 ```
 
 Next, add the module to your `~/.juliarc.jl`-file, i.e., append the following line:
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 ```julia
 push!(LOAD_PATH,"/Path/to/QMC")
 ```
@@ -42,12 +45,18 @@ lat = LatSeq(2)
 ```
 
 The first point of the sequence can be obtained as
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 ```julia
 next(lat)
 ```
 It is a `Vector{Float64}` of length `s` containing
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9b9d4a66b77977997fbe65eb2c0f79c2807135b0
 ```
 [0.0, 0.0]
 ```
