@@ -1,5 +1,6 @@
 using QMC
 using Base.Test
+using SpecialFunctions
 
 srand(1208)
 
@@ -28,7 +29,7 @@ function approx_pi_qmc_2(n::Integer)
 end
 
 function norminv{T}(x::AbstractArray{T})
-	return sqrt(2)*erfinv(2*x-1)
+	return sqrt(2)*erfinv.(2*x-1)
 end
 
 
@@ -56,12 +57,12 @@ end
 d = [-1 0 3601] # invalid
 for i in 1:length(d)
 	println("Constructing lattice sequence in $(d[i]) dimensions...")
-	@test_throws ErrorException LatSeq(d[i])
+	@test_throws BoundsError LatSeq(d[i])
 end
 d = [-1 0 1112] # invalid
 for i in 1:length(d)
 	println("Constructing digital sequence in $(d[i]) dimensions...")
-	@test_throws ErrorException DigSeq(d[i])
+	@test_throws BoundsError DigSeq(d[i])
 end
 d = [2 150] # valid
 q = [8 16]
@@ -93,7 +94,7 @@ v = [ 4.000000000000000, 3.000000000000000, 3.250000000000000, 3.250000000000000
       3.142578125000000, 3.144042968750000, 3.140869140625000, 3.141479492187500, 3.141540527343750 ]
 for i in 1:length(n)
 	println("Computing integral with $(n[i]) points...")
-	@test_approx_eq_eps approx_pi_qmc(n[i]) v[i] 1e-4
+	@test approx_pi_qmc(n[i]) ≈v[i] atol=1e-4
 end
 
 println("=============================")
@@ -105,7 +106,7 @@ v = [ 2.000000000000000, 2.000000000000000, 2.500000000000000, 2.500000000000000
 	  3.142578125000000, 3.141601562500000, 3.142333984375000, 3.143310546875000, 3.14190673828125 ]
 for i in 1:length(n)
 	println("Computing integral with $(n[i]) points...")
-	@test_approx_eq_eps approx_pi_qmc_2(n[i]) v[i] 1e-4
+	@test approx_pi_qmc_2(n[i]) ≈v[i] atol=1e-4
 end
 
 println("============================")
