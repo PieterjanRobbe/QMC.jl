@@ -27,8 +27,10 @@ end
 Create a lattice sequence in `s` dimensions from the generating vector `z` that can generate at most `nmax` points.
 
 # Examples
+
 ```jldoctest
-julia> 
+julia> LatSeq([0x00000001,0x00000022],2,0x00000037) # fibonacci lattice with 55 points
+2-dimensional lattice sequence
 ```
 """
 function LatSeq{U<:Unsigned,N<:Integer}(z::AbstractVector, s::N, nmax::U = typemax(U))
@@ -47,8 +49,10 @@ end
 Create a lattice sequence in `s` dimensions using a default generating vector.
 
 # Examples
+
 ```jldoctest
-julia> 
+julia> LatSeq(112)
+112-dimensional lattice sequence
 ```
 """
 function LatSeq(s::Integer)
@@ -67,8 +71,21 @@ end
 Get the `k`-th point of the lattice sequence `lat`. A point is a vector of length `s`, where `s` is the dimension of the lattice sequence.
 
 # Examples
+
 ```jldoctest
-julia> 
+julia> lat = LatSeq(8)
+8-dimensional lattice sequence
+
+julia> getPoint(lat,10)
+8-element Array{Float64,1}:
+ 0.9375
+ 0.3125
+ 0.8125
+ 0.9375
+ 0.4375
+ 0.5625
+ 0.4375
+ 0.8125
 ```
 """
 function getPoint{s,N<:Integer}(lat::LatSeq{s}, k::N)
@@ -101,10 +118,6 @@ end
 
 Create a digital sequence in `s` dimensions from the generating matrix `C` that can generate at most `nmax` points.
 
-# Examples
-```jldoctest
-julia> 
-```
 """
 function DigSeq{U<:Unsigned,N<:Integer}(C::AbstractMatrix, s::N, nmax::U = typemax(U))
 	s <= 0 && throw(BoundsError("s must be positive"))
@@ -123,8 +136,10 @@ end
 Create a digital sequence in `s` dimensions using a default generating matrix.
 
 # Examples
+
 ```jldoctest
-julia> 
+julia> dig = DigSeq(8)
+8-dimensional digital sequence 
 ```
 """
 function DigSeq(s::Integer)
@@ -144,7 +159,19 @@ Get the `k`-th point of the digital sequence `dig`. A point is a vector of lengt
 
 # Examples
 ```jldoctest
-julia> 
+julia> dig = DigSeq(8)
+8-dimensional digital sequence
+
+julia> getPoint(dig,10)
+8-element Array{Float64,1}:
+ 0.994143
+ 0.712787
+ 0.971628
+ 0.689584
+ 0.532585
+ 0.664304
+ 0.837412
+ 0.64264 
 ```
 """
 function getPoint{s,N<:Integer,U<:Unsigned}(d::DigSeq{s,U}, k::N)
@@ -185,7 +212,11 @@ Randomize the lattice sequence `lat` using `q` shifts.
 
 # Examples
 ```jldoctest
-julia> 
+julia> lat = LatSeq(8)
+8-dimensional lattice sequence
+
+julia> ran = RandWrapper(lat,16)
+8-dimensional randomized sequence with 16 shifts
 ```
 """
 function RandWrapper{s,U,V,N}(generator::LatSeq{s,U,V}, q::N)
@@ -200,7 +231,11 @@ Randomize the digital sequence `dig` using `q` shifts.
 
 # Examples
 ```jldoctest
-julia> 
+julia> dig = DigSeq(8)
+8-dimensional digital sequence
+
+julia> ran = RandWrapper(dig,16)
+8-dimensional randomized sequence with 16 shifts
 ```
 """
 function RandWrapper{s,U,M,N}(generator::DigSeq{s,U,M}, q::N)
@@ -209,13 +244,22 @@ function RandWrapper{s,U,M,N}(generator::DigSeq{s,U,M}, q::N)
 end
 
 """
-    getPoint(rand, k)
+    getPoint(ran, k)
 
 Get the `k`-th point of the randomized lattice sequence `rand`. A point is a matrix of size `s`+`q`, where `s` is the dimension of the sequence, and `q` is the number of shifts.
 
 # Examples
 ```jldoctest
-julia> 
+julia> lat = LatSeq(2)
+2-dimensional lattice sequence
+
+julia> ran = RandWrapper(lat,4)
+2-dimensional randomized sequence with 4 shifts
+
+julia> getPoint(ran, 10)
+2×4 Array{Float64,2}:
+ 0.516178  0.834656  0.935372  0.757624
+ 0.711024  0.345201  0.485886  0.672963
 ```
 """
 function getPoint{s,q,M,N<:Integer}(r::RandWrapper{s,q,Float64,M}, k::N)
@@ -224,13 +268,22 @@ function getPoint{s,q,M,N<:Integer}(r::RandWrapper{s,q,Float64,M}, k::N)
 end
 
 """
-    getPoint(rand, k)
+    getPoint(ran, k)
 
 Get the `k`-th point of the randomized digital sequence `rand`. A point is a matrix of size `s`-by-`q`, where `s` is the dimension of the sequence, and `q` is the number of shifts.
 
 # Examples
 ```jldoctest
-julia> 
+julia> dig = DigSeq(2)
+2-dimensional digital sequence
+
+julia> ran = RandWrapper(dig,4)
+2-dimensional randomized sequence with 4 shifts
+
+julia> getPoint(ran, 10)
+2×4 Array{Float64,2}:
+ 0.562022  0.734445  0.923817  0.757195
+ 0.334069  0.212996  0.896181  0.214044
 ```
 """
 function getPoint{s,q,U<:Unsigned,M,N<:Integer}(r::RandWrapper{s,q,U,M}, k::N)
@@ -284,7 +337,7 @@ function next{N<:Integer}(g::QMCgenerator, n::N)
 end
 
 """
-    next(rand)
+    next(ran)
 
 Get the next point of the randomized sequence. A point is a matrix of size `s`-by-`q`, where `s` is the dimension of the sequence and `q` is the number of shifts.
 """
@@ -295,7 +348,7 @@ function next(r::RandWrapper)
 end
 
 """
-    next(rand, n)
+    next(ran, n)
 
 Get the next n points of the randomized sequence. A point is a matrix of size `s`-by-`q`, where `s` is the dimension of the sequence and `q` is the number of shifts. All points are returned in a vector of size (n,).
 """
@@ -317,7 +370,7 @@ function reset(g::QMCgenerator)
 end
 
 """
-    reset(rand)
+    reset(ran)
 
 Reset the counter of the randomized QMC generator.
 """

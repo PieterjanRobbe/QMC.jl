@@ -25,7 +25,7 @@ Next, add the module to your `~/.juliarc.jl`-file, i.e., append the following li
 ```julia
 push!(LOAD_PATH,"/Path/to/QMC")
 ```
-where `/Path/to/QMC` is the path to your QMC package, usually this is `./.julia/v0.4/QMC`.
+where `/Path/to/QMC` is the path to your QMC package, usually this is `./.julia/v0.X/QMC`, with `X` your Julia version number.
 
 ## Usage
 
