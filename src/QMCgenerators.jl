@@ -208,7 +208,7 @@ end
 """
     RandWrapper(lat, q)
 
-Randomize the lattice sequence `lat` using `q` shifts.
+	Randomize the lattice sequence `lat` (or general QMCgenerator) using `q` shifts.
 
 # Examples
 ```jldoctest
@@ -219,7 +219,7 @@ julia> ran = RandWrapper(lat,16)
 8-dimensional randomized sequence with 16 shifts
 ```
 """
-function RandWrapper{s,U,V,N}(generator::LatSeq{s,U,V}, q::N)
+function RandWrapper{s,N}(generator::QMCgenerator{s}, q::N)
 	shifts = rand(s,q)
 	RandWrapper{s,q,eltype(shifts),typeof(shifts)}(generator, shifts)
 end
