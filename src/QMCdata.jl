@@ -1,3 +1,5 @@
+# QMCdata.jl : load some default generating vectors and matrices from a file
+
 # obtain absolute path to module
 PATH = Pkg.dir("QMC")
 
