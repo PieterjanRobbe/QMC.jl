@@ -28,7 +28,7 @@ function approx_pi_qmc_2(n::Integer)
 	return 4*count/n
 end
 
-function norminv{T}(x::AbstractArray{T})
+function norminv(x::AbstractArray{T}) where T
 	return sqrt(2)*erfinv.(2*x-1)
 end
 

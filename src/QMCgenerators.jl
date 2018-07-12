@@ -393,4 +393,4 @@ next(r::RandWrapper, r_::RandWrapper) = (next(r), r_)
 done(r::RandWrapper, r_::RandWrapper) = false # infinite loop
 
 # reverse bits of UInt type
-reversebits{U<:Unsigned}(n::U)=parse(U,reverse(bits(n)),2)
+reversebits(n::U) where {U<:Unsigned}=parse(U,reverse(bits(n)),2)
