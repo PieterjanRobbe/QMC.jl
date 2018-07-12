@@ -1,6 +1,9 @@
 __precompile__()
 module QMC
 
+# dependencies
+using Pkg, DelimitedFiles
+
 # import statements
 import Base: show, next, reset, start, done
 

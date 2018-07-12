@@ -1,7 +1,7 @@
 # QMCdata.jl : load some default generating vectors and matrices from a file
 
 # obtain absolute path to module
-PATH = Pkg.dir("QMC")
+PATH = joinpath(DEPOT_PATH[1],"dev","QMC") # TODO how does this work with the new Pkg if I just "add" QMC?
 
 # the 250-dimensional generating vector of the Cools, Kuo and Nuyens paper in SIAM SISC for 2^20 points
 const CKN_250_20 = vec(readdlm(joinpath(PATH,"data","CKN_250_20.txt"),UInt32))
