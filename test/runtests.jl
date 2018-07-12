@@ -1,8 +1,8 @@
+using StatsBase
 using QMC
 using Test
 using SpecialFunctions
 using Random
-using StatsBase
 
 srand(1208)
 
