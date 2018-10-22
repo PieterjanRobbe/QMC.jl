@@ -17,7 +17,7 @@ Note that our lattice rules are in fact (extensible) lattice sequences, since we
 ## Installation
 
 ```julia
-Pkg.clone("https://github.com/PieterjanRobbe/QMC.jl")
+] add https://github.com/PieterjanRobbe/QMC.jl
 ```
 
 Next, add the module to your `~/.juliarc.jl`-file, i.e., append the following line:
