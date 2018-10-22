@@ -38,7 +38,7 @@ function LatSeq(z::AbstractVector, s::N where N<:Integer, nmax::U = typemax(U)) 
     s > length(z) && throw(BoundsError("Can only generate $(nmax) points in $(length(z)) dimensions. 
                                        Supply a different generating vector to increase."))
     eltype(z) == U || throw(TypeError("Generating vector element type and type of `nmax` do not agree."))
-    t = length(bin(typemax(U)))
+    t = length(string(typemax(U), base=2))
     LatSeq{s,eltype(z),typeof(z)}(z, nmax, zero(U), exp2(-t))
 end
 
@@ -125,7 +125,7 @@ function DigSeq(C::AbstractMatrix, s::N where N<:Integer, nmax::U = typemax(U)) 
                                        Supply a different generating vector to increase."))
     eltype(C) == U || throw(TypeError("Generating vector element type and type of `nmax` do not agree."))
     C = reversebits.(C)
-    t = maximum([ length(bin(C[1,i])) for i in 1:size(C,2) ])
+    t = maximum([ length(string(C[1,i], base=2)) for i in 1:size(C,2) ])
     DigSeq{s,eltype(C),typeof(C)}(C, nmax, zero(U), exp2(-t))
 end
 
@@ -179,7 +179,7 @@ function getPoint(d::DigSeq{s,U}, k::N where N<:Integer) where {s,U<:Unsigned}
     k > 0 || return zeros(s) # return zero if k == 0
     @assert k < d.nmax
     cur = zeros(U,s)
-    for i in 1:length(bits(k))
+    for i in 1:length(bitstring(k))
         if ( k & (1 << (i - 1) ) ) != 0
             for j in 1:s
                 cur[j] ⊻= d.C[j,i]
@@ -288,7 +288,7 @@ julia> getPoint(ran, 10)
 """
 function getPoint(r::RandWrapper{s,q,U,M}, k::N where N<:Integer) where {s,q,U<:Unsigned,M}
     x = getPoint(r.generator, k)
-    return xor.(r.shifts, repmat(convert(Array{UInt32},floor.(typemax(U)*x)),1,size(r.shifts,2))) * r.generator.recipid
+    return xor.(r.shifts, repeat(convert(Array{UInt32},floor.(typemax(U)*x)),1,size(r.shifts,2))) * r.generator.recipid
 end
 
 ## General behavior ##
@@ -380,17 +380,9 @@ function reset(r::RandWrapper)
 end
 
 # make the generator iterable
-start(g::QMCgenerator) = g
+iterate(g::QMCgenerator, count=0) = next(g), count+1
 
-next(g::QMCgenerator, g_::QMCgenerator) = (next(g), g_)
-
-done(g::QMCgenerator, g_::QMCgenerator) = false # infinite loop
-
-start(r::RandWrapper) = r
-
-next(r::RandWrapper, r_::RandWrapper) = (next(r), r_)
-
-done(r::RandWrapper, r_::RandWrapper) = false # infinite loop
+iterate(r::RandWrapper, count=0) = next(r), count+1
 
 # reverse bits of UInt type
-reversebits{U<:Unsigned}(n::U)=parse(U,reverse(bits(n)),2)
+reversebits(n::U) where {U<:Unsigned} = parse(U, reverse(bitstring(n)), base=2)
