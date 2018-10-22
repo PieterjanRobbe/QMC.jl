@@ -20,19 +20,12 @@ Note that our lattice rules are in fact (extensible) lattice sequences, since we
 ] add https://github.com/PieterjanRobbe/QMC.jl
 ```
 
-Next, add the module to your `~/.juliarc.jl`-file, i.e., append the following line:
-
-```julia
-push!(LOAD_PATH,"/Path/to/QMC")
-```
-where `/Path/to/QMC` is the path to your QMC package, usually this is `./.julia/v0.X/QMC`, with `X` your Julia version number.
-
 ## Usage
 
 Now you should be able to 
 
 ```julia
-using QMC
+import QMC
 ```
 
 A lattice sequence in `s = 2` dimensions can be constructed as
