@@ -25,7 +25,7 @@ Note that our lattice rules are in fact (extensible) lattice sequences, since we
 Now you should be able to 
 
 ```julia
-import QMC
+using QMC
 ```
 
 A lattice sequence in `s = 2` dimensions can be constructed as
